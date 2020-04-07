@@ -20,3 +20,6 @@ target
 settings.json
 build_run_configuration_web_win.sh
 bin
+*.git
+*.pkg.*
+pkg
