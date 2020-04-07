@@ -28,15 +28,14 @@ dist:
 
 	echo -e "\
 	#!/usr/bin/env bash\n\
-	java -jar $(PROJECT_NAME)-portable-$(VERSION).jar\
+	java -jar $(PROJECT_NAME)-portable-$(VERSION).jar > ~/myapp.log\
 	" > $(BIN_DIR)/$(PROJECT_NAME)
 	chmod +x $(BIN_DIR)/$(PROJECT_NAME)
 
 	cp ImageResources/logo.svg  $(BIN_DIR)/$(PROJECT_NAME).svg
 	echo -e "\
 	[Desktop Entry]\n\
-	Encoding=UTF-8\n\
-	Version=$(VERSION)\n\
+	Version=1.0\n\
 	Type=Application\n\
 	Terminal=false\n\
 	Exec=$(PROJECT_NAME)\n\
@@ -59,20 +58,19 @@ update_web_interfaces:
 
 # Install built program
 install:
-	echo $(DESTDIR)
-	echo $(PREFIX)
-
 	install -d $(DESTDIR)$(PREFIX)/
-	install -m 644 $(BIN_DIR)/$(PROJECT_NAME)-portable-$(VERSION).jar $(DESTDIR)$(PREFIX)/
-	install -m 777 $(BIN_DIR)/$(PROJECT_NAME) $(DESTDIR)$(PREFIX)/
+	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME)-portable-$(VERSION).jar $(DESTDIR)$(PREFIX)/
+	install -Dm 777 $(BIN_DIR)/$(PROJECT_NAME) $(DESTDIR)$(PREFIX)/
 
-	sed -i s#Exec=#Exec=$(DESTDIR)$(PREFIX)# bin/$(PROJECT_NAME).desktop
+# Install a desktop file for the installed program
+install_desktop:
+	sed -i s#Exec=#Exec=$(DESTDIR)$(PREFIX)/# bin/$(PROJECT_NAME).desktop
 	sed -i s#Icon=#Icon=/usr/share/applications/# bin/$(PROJECT_NAME).desktop
-	install -m 644 $(BIN_DIR)/$(PROJECT_NAME).desktop /usr/share/applications/
-	sed -i s#Exec=$(DESTDIR)$(PREFIX)#Exec=# bin/$(PROJECT_NAME).desktop
+	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME).desktop /usr/share/applications/
+	sed -i s#Exec=$(DESTDIR)$(PREFIX)/#Exec=# bin/$(PROJECT_NAME).desktop
 	sed -i s#Icon=/usr/share/applications/#Icon=# bin/$(PROJECT_NAME).desktop
 
-	install -m 644 $(BIN_DIR)/$(PROJECT_NAME).svg /usr/share/applications/
+	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME).svg /usr/share/applications/
 
 # Uninstall installed program
 uninstall:
