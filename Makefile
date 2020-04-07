@@ -1,4 +1,4 @@
-.PHONY: build dist install img web
+.PHONY: build clean dist install install_desktop img web
 
 SRC_DIR=DesktopClient
 BIN_DIR=bin
@@ -8,8 +8,17 @@ VERSION=2.0.0
 ifeq ($(PREFIX),)
     PREFIX := /usr/bin
 endif
+ifeq ($(PREFIX_DESKTOP),)
+    PREFIX_DESKTOP := /usr/share/applications
+endif
 
 all: build dist
+
+clean:
+	rm -rf $(BIN_DIR) pkg karaokemusicvideomanager.git src
+	rm -f *.pkg.tar.xz *.jar
+	cd $(SRC_DIR); \
+	mvn clean
 
 # Build the program
 build:
@@ -64,27 +73,23 @@ install:
 	install -Dm 777 $(BIN_DIR)/$(PROJECT_NAME) $(DESTDIR)$(PREFIX)/
 	sed -i s#$(DESTDIR)$(PREFIX)/$(PROJECT_NAME)-portable#$(PROJECT_NAME)-portable# $(BIN_DIR)/$(PROJECT_NAME)
 
-
 # Install a desktop file for the installed program
 install_desktop:
 	sed -i s#Exec=#Exec=$(DESTDIR)$(PREFIX)/# bin/$(PROJECT_NAME).desktop
-	sed -i s#Icon=#Icon=/usr/share/applications/# bin/$(PROJECT_NAME).desktop
+	sed -i s#Icon=#Icon=$(DESTDIR)$(PREFIX_DESKTOP)/# bin/$(PROJECT_NAME).desktop
 	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME).desktop /usr/share/applications/
 	sed -i s#Exec=$(DESTDIR)$(PREFIX)/#Exec=# bin/$(PROJECT_NAME).desktop
-	sed -i s#Icon=/usr/share/applications/#Icon=# bin/$(PROJECT_NAME).desktop
+	sed -i s#Icon=$(DESTDIR)$(PREFIX_DESKTOP)/#Icon=# bin/$(PROJECT_NAME).desktop
 
-	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME).svg /usr/share/applications/
+	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME).svg $(DESTDIR)$(PREFIX_DESKTOP)/
 
 # Uninstall installed program
 uninstall:
-	echo $(DESTDIR)
-	echo $(PREFIX)
-
 	rm -f $(DESTDIR)$(PREFIX)/$(PROJECT_NAME)-portable-$(VERSION).jar
 	rm -f $(DESTDIR)$(PREFIX)/$(PROJECT_NAME)
 
-	rm -f /usr/share/applications/$(PROJECT_NAME).desktop
-	rm -f /usr/share/applications/$(PROJECT_NAME).svg
+	rm -f $(DESTDIR)$(PREFIX_DESKTOP)/$(PROJECT_NAME).desktop
+	rm -f $(DESTDIR)$(PREFIX_DESKTOP)/$(PROJECT_NAME).svg
 
 create_package:
 	makepkg .
