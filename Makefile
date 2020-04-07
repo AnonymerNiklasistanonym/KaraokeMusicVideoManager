@@ -68,6 +68,7 @@ update_web_interfaces:
 # Install built program
 install:
 	install -d $(DESTDIR)$(PREFIX)/
+
 	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME)-portable-$(VERSION).jar $(DESTDIR)$(PREFIX)/
 	sed -i s#$(PROJECT_NAME)-portable#$(DESTDIR)$(PREFIX)/$(PROJECT_NAME)-portable# $(BIN_DIR)/$(PROJECT_NAME)
 	install -Dm 777 $(BIN_DIR)/$(PROJECT_NAME) $(DESTDIR)$(PREFIX)/
@@ -75,11 +76,13 @@ install:
 
 # Install a desktop file for the installed program
 install_desktop:
-	sed -i s#Exec=#Exec=$(DESTDIR)$(PREFIX)/# bin/$(PROJECT_NAME).desktop
-	sed -i s#Icon=#Icon=$(DESTDIR)$(PREFIX_DESKTOP)/# bin/$(PROJECT_NAME).desktop
+	install -d $(DESTDIR)$(PREFIX_DESKTOP)/
+
+	sed -i s#Exec=#Exec=$(DESTDIR)$(PREFIX)/# $(BIN_DIR)/$(PROJECT_NAME).desktop
+	sed -i s#Icon=#Icon=$(DESTDIR)$(PREFIX_DESKTOP)/# $(BIN_DIR)/$(PROJECT_NAME).desktop
 	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME).desktop $(DESTDIR)$(PREFIX_DESKTOP)/
-	sed -i s#Exec=$(DESTDIR)$(PREFIX)/#Exec=# bin/$(PROJECT_NAME).desktop
-	sed -i s#Icon=$(DESTDIR)$(PREFIX_DESKTOP)/#Icon=# bin/$(PROJECT_NAME).desktop
+	sed -i s#Exec=$(DESTDIR)$(PREFIX)/#Exec=# $(BIN_DIR)/$(PROJECT_NAME).desktop
+	sed -i s#Icon=$(DESTDIR)$(PREFIX_DESKTOP)/#Icon=# $(BIN_DIR)/$(PROJECT_NAME).desktop
 
 	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME).svg $(DESTDIR)$(PREFIX_DESKTOP)/
 
