@@ -77,7 +77,7 @@ install:
 install_desktop:
 	sed -i s#Exec=#Exec=$(DESTDIR)$(PREFIX)/# bin/$(PROJECT_NAME).desktop
 	sed -i s#Icon=#Icon=$(DESTDIR)$(PREFIX_DESKTOP)/# bin/$(PROJECT_NAME).desktop
-	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME).desktop /usr/share/applications/
+	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME).desktop $(DESTDIR)$(PREFIX_DESKTOP)/
 	sed -i s#Exec=$(DESTDIR)$(PREFIX)/#Exec=# bin/$(PROJECT_NAME).desktop
 	sed -i s#Icon=$(DESTDIR)$(PREFIX_DESKTOP)/#Icon=# bin/$(PROJECT_NAME).desktop
 
