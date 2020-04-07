@@ -1,6 +1,9 @@
-.PHONY: build img web
+.PHONY: build dist install img web
 
 SRC_DIR=DesktopClient
+BIN_DIR=bin
+PROJECT_NAME=KaraokeMusicVideoManager
+VERSION=2.0.0
 
 all: build dist
 
@@ -8,13 +11,34 @@ all: build dist
 build:
 	echo "Build 'portable' runnable jar:"
 	cd $(SRC_DIR); \
-	mvn clean install
+	mvn install
 
 # Clean up build and extract/rename executable
 dist:
 	echo "Dist (rename) runnable jar:"
 	cd $(SRC_DIR); \
 	python3 format_exported_jar.py
+
+	mkdir -p $(BIN_DIR)
+	cp $(PROJECT_NAME)-portable-$(VERSION).jar $(BIN_DIR)/
+
+	echo -e "\
+	#!/usr/bin/env bash\n\
+	java -jar $(PROJECT_NAME)-portable-$(VERSION).jar\
+	" > $(BIN_DIR)/$(PROJECT_NAME)
+	chmod +x $(BIN_DIR)/$(PROJECT_NAME)
+
+	cp ImageResources/logo.svg  $(BIN_DIR)/$(PROJECT_NAME).svg
+	echo -e "\
+	[Desktop Entry]\n\
+	Encoding=UTF-8\n\
+	Version=$(VERSION)\n\
+	Type=Application\n\
+	Terminal=false\n\
+	Exec=$(PROJECT_NAME)\n\
+	Name=$(PROJECT_NAME)\n\
+	Icon=$(PROJECT_NAME).svg\n\
+	" > $(BIN_DIR)/$(PROJECT_NAME).desktop
 
 # Update images
 update_images:
@@ -27,3 +51,17 @@ update_web_interfaces:
 	echo "Update/Create all web interfaces:"
 	cd WebInterfaces; \
 	python3 create_website_resources.py
+
+# Install built program
+install:
+	install -d $(DESTDIR)/bin/
+	install -m 644 $(BIN_DIR)/$(PROJECT_NAME)-portable-$(VERSION).jar $(DESTDIR)/bin/
+	install -m 770 $(BIN_DIR)/$(PROJECT_NAME) $(DESTDIR)/bin/
+
+	install -m 644 $(BIN_DIR)/$(PROJECT_NAME).desktop $(DESTDIR)/bin/
+	install -m 644 $(BIN_DIR)/$(PROJECT_NAME).svg $(DESTDIR)/bin/
+
+create_package:
+	makepkg .
+	# Install with
+	# pacman -U packagename.tar.gz
