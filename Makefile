@@ -28,7 +28,7 @@ dist:
 
 	echo -e "\
 	#!/usr/bin/env bash\n\
-	java -jar $(PROJECT_NAME)-portable-$(VERSION).jar > ~/myapp.log\
+	java -jar $(PROJECT_NAME)-portable-$(VERSION).jar\
 	" > $(BIN_DIR)/$(PROJECT_NAME)
 	chmod +x $(BIN_DIR)/$(PROJECT_NAME)
 
