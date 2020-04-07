@@ -14,16 +14,16 @@ build:
 dist:
 	echo "Dist (rename) runnable jar:"
 	cd $(SRC_DIR); \
-	python format_exported_jar.py
+	python3 format_exported_jar.py
 
 # Update images
 update_images:
 	echo "Update/Create all images and icons: (wait some seconds)"
 	cd ImageResources; \
-	python create_image_resources.py
+	python3 create_image_resources.py
 
 # Update web data
 update_web_interfaces:
 	echo "Update/Create all web interfaces:"
 	cd WebInterfaces; \
-	python create_website_resources.py
+	python3 create_website_resources.py
