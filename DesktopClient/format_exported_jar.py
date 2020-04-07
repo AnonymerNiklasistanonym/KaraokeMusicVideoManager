@@ -17,10 +17,13 @@ ARTIFACT_ID = XML_TREE.getElementsByTagName("artifactId")[0].firstChild.data
 VERSION = XML_TREE.getElementsByTagName("version")[0].firstChild.data
 
 # the exported file path/name
-EXPORTED_FILE_PATH = r"../" + ARTIFACT_ID + \
-    "-" + VERSION + "-jar-with-dependencies.jar"
+EXPORTED_FILE_PATH = os.path.join(
+    "..", f"{ARTIFACT_ID}-{VERSION}-jar-with-dependencies.jar"
+)
 # the exported file path/name we really want
-WISHED_FILE_PATH = r"../" + ARTIFACT_ID + "-portable-" + VERSION + ".jar"
+WISHED_FILE_PATH = os.path.join(
+    "..",  f"{ARTIFACT_ID}-portable-{VERSION}.jar"
+)
 
 # check if the exported file even exists
 if os.path.isfile(EXPORTED_FILE_PATH):

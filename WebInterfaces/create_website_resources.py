@@ -28,7 +28,7 @@ JS_FILES = ["jquery.min", "w3"]
 def css_to_json(output_path):
     """ Save all css files in one json file """
 
-    # create an empty (json) dictonary for the json file
+    # create an empty (json) dictionary for the json file
     json_css = {}
 
     for css_file in CSS_FILES:
@@ -41,14 +41,14 @@ def css_to_json(output_path):
             # strip whitespaces, tabs and paragraphs from line
             line = line.strip()
             # check if the line is neither empty nor a comment
-            if line is not "" and not line.startswith("/*"):
+            if line != "" and not line.startswith("/*"):
                 # if yes save content in the walking string
                 walking_css_string += line
 
-        # save the css file in the dictonary
+        # save the css file in the dictionary
         json_css[css_file] = walking_css_string
 
-    dictonary_to_json(output_path, json_css)
+    dictionary_to_json(output_path, json_css)
 
 
 def read_text_file_to_lines(text_file_path):
@@ -59,12 +59,12 @@ def read_text_file_to_lines(text_file_path):
         return file.readlines()
 
 
-def dictonary_to_json(output_path, json_dictonary):
-    """ Save a dictonary in a json file """
+def dictionary_to_json(output_path, json_dictionary):
+    """ Save a dictionary in a json file """
 
     # save the json dictionary in a json file
     with open(output_path, 'w') as outfile:
-        json.dump(json_dictonary, outfile)
+        json.dump(json_dictionary, outfile)
 
     # print the write process to the console
     print("- Json file exported: " + output_path)
@@ -73,7 +73,7 @@ def dictonary_to_json(output_path, json_dictonary):
 def html_to_json(output_path):
     """ Save all html files in one json file """
 
-    # create an empty (json) dictonary for the json file
+    # create an empty (json) dictionary for the json file
     json_html = {}
 
     walking_html_string = ""
@@ -82,7 +82,7 @@ def html_to_json(output_path):
         # strip whitespaces, tabs and paragraphs from line
         line = line.strip()
         # check if the line is neither empty nor a comment
-        if line is not "":
+        if line != "":
             if line.startswith("<head>"):
                 walking_html_string = ""
                 walking_html_string_special = ""
@@ -117,7 +117,7 @@ def html_to_json(output_path):
             # strip whitespaces, tabs and paragraphs from line
             line = line.strip()
             # check if the line is neither empty nor a comment
-            if line is not "":
+            if line != "":
                 if line.startswith("<!--"):
                     # now the categories:
                     if "custom-head-begin" in line:
@@ -194,7 +194,7 @@ def html_to_json(output_path):
                 else:
                     walking_html_string += line
 
-    dictonary_to_json(output_path, json_html)
+    dictionary_to_json(output_path, json_html)
 
 
 def php_to_json(output_path):
@@ -209,7 +209,7 @@ def php_to_json(output_path):
         # strip whitespaces, tabs and paragraphs from line
         line = line.strip()
         # check if the line is neither empty nor a comment
-        if line is not "":
+        if line != "":
             if line.startswith("<!--"):
                 # now the categories:
                 if "before-html" in line:
@@ -288,7 +288,7 @@ def php_to_json(output_path):
         # strip whitespaces, tabs and paragraphs from line
         line = line.strip()
         # check if the line is neither empty nor a comment
-        if line is not "":
+        if line != "":
             if line.startswith("#"):
                 # now the categories:
                 if "link-begin" in line:
@@ -310,17 +310,17 @@ def php_to_json(output_path):
             else:
                 walking_php_string += line
 
-    json_php['after-link-' + PHP_FILE_PROCESS] = walking_php_string    
-    
+    json_php['after-link-' + PHP_FILE_PROCESS] = walking_php_string
+
     for php_file in PHP_COPY_FILES:
-        
+
         walking_php_string = ""
 
         for line in read_text_file_to_lines(os.path.join(PATH_PHP, php_file + ".php")):
             # strip whitespaces, tabs and paragraphs from line
             line = line.strip()
             # check if the line is neither empty nor a comment
-            if line is not "":
+            if line != "":
                 if line.startswith('<?php'):
                     if line.startswith('<?php '):
                         walking_php_string += line
@@ -333,7 +333,7 @@ def php_to_json(output_path):
 
         json_php['php-data-' + php_file] = walking_php_string
 
-    dictonary_to_json(output_path, json_php)
+    dictionary_to_json(output_path, json_php)
 
 
 def js_to_json(output_path):

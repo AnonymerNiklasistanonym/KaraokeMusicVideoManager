@@ -1,8 +1,6 @@
 # KaraokeMusicVideoManager
 A software that scans folders after music videos, brings them together in a list and starts them. After this there will also come a website where people can say/post which song they want to do next.
 
-<br>
-
 ## What is the KaraokeMusicVideoManager about?
 
 It's a program to manage your Karaoke evening/event :sing:.
@@ -22,8 +20,6 @@ You can do even more if you press the right mouse button in the music video list
 *But there is even more:*
 
 You can also setup a server (with for example a Raspberry Pi 3 and Apache) and every guest in the same network as the server and your computer where you run the program can add themselves music video files to the playlist and even vote which they want to sing or watch after a quick setup on your computer.
-
-<br>
 
 ## Setup the program
 
@@ -50,8 +46,6 @@ Server setup:
 5. Click the service you want to have and automatically every time you refresh the playlist table tab (Right mouse button, click **Refresh**) it fetches all the information from the server and sorts it after votes and then time.
 6. Have fun!
 
-<br>
-
 ## Documentation
 
 Links to the big parts of this project:
@@ -69,8 +63,6 @@ Links to the big parts of this project:
 ### :arrow_forward: [How to setup a server for the 'party-mode' (Raspberry Pi 3)](Documentation/HOW_TO_SERVER.md)
 
 ### :arrow_forward: [Frequently asked questions](Documentation/FAQ.md)
-
-<br>
 
 ## Advanced instructions: How can I download/install/run the program?
 
@@ -100,28 +92,30 @@ If you have Java not installed or an old version install the newest and securest
 If you have Java not installed or an old version install the newest and securest version form the official repository:
 
 ```
-$ sudo apt-get install oracle-java8-jdk
+# Ubuntu
+sudo apt-get install oracle-java8-jdk
+# Manjaro
+sudo pacman -S jdk8-openjdk
 ```
 
 Because this program uses a Java Library named JavaFx you additional need to install this too:
 
- ```
-$ sudo apt-get install openjfx
- ```
+```sh
+# Ubuntu
+sudo apt-get install openjfx
+# Manjaro
+sudo pacman -S java8-openjfx
+```
 
 Now you can run the program with the following command through the command line:
 
 ```
-$ java -jar path/to/downloaded/file.jar
+java -jar path/to/downloaded/file.jar
 ```
-
-<br>
 
 ## Frequently asked questions
 
 [Click this text to get to the frequently asked questions (FAQ's).](Documentation/FAQ.md)
-
-<br>
 
 ## Still have a Question/Problem/Idea?
 
@@ -129,4 +123,4 @@ If you still have any kind of questions, problems or great ideas open an issue o
 
 Have fun using this program!
 
- :smiley:
+:smiley:
