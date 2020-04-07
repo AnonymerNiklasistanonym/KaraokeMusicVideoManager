@@ -5,6 +5,10 @@ BIN_DIR=bin
 PROJECT_NAME=KaraokeMusicVideoManager
 VERSION=2.0.0
 
+ifeq ($(PREFIX),)
+    PREFIX := /usr/bin
+endif
+
 all: build dist
 
 # Build the program
@@ -37,6 +41,7 @@ dist:
 	Terminal=false\n\
 	Exec=$(PROJECT_NAME)\n\
 	Name=$(PROJECT_NAME)\n\
+	Comment=Index local music videos to search and open them\n\
 	Icon=$(PROJECT_NAME).svg\n\
 	" > $(BIN_DIR)/$(PROJECT_NAME).desktop
 
@@ -54,12 +59,31 @@ update_web_interfaces:
 
 # Install built program
 install:
-	install -d $(DESTDIR)/bin/
-	install -m 644 $(BIN_DIR)/$(PROJECT_NAME)-portable-$(VERSION).jar $(DESTDIR)/bin/
-	install -m 770 $(BIN_DIR)/$(PROJECT_NAME) $(DESTDIR)/bin/
+	echo $(DESTDIR)
+	echo $(PREFIX)
 
-	install -m 644 $(BIN_DIR)/$(PROJECT_NAME).desktop $(DESTDIR)/bin/
-	install -m 644 $(BIN_DIR)/$(PROJECT_NAME).svg $(DESTDIR)/bin/
+	install -d $(DESTDIR)$(PREFIX)/
+	install -m 644 $(BIN_DIR)/$(PROJECT_NAME)-portable-$(VERSION).jar $(DESTDIR)$(PREFIX)/
+	install -m 777 $(BIN_DIR)/$(PROJECT_NAME) $(DESTDIR)$(PREFIX)/
+
+	sed -i s#Exec=#Exec=$(DESTDIR)$(PREFIX)# bin/$(PROJECT_NAME).desktop
+	sed -i s#Icon=#Icon=/usr/share/applications/# bin/$(PROJECT_NAME).desktop
+	install -m 644 $(BIN_DIR)/$(PROJECT_NAME).desktop /usr/share/applications/
+	sed -i s#Exec=$(DESTDIR)$(PREFIX)#Exec=# bin/$(PROJECT_NAME).desktop
+	sed -i s#Icon=/usr/share/applications/#Icon=# bin/$(PROJECT_NAME).desktop
+
+	install -m 644 $(BIN_DIR)/$(PROJECT_NAME).svg /usr/share/applications/
+
+# Uninstall installed program
+uninstall:
+	echo $(DESTDIR)
+	echo $(PREFIX)
+
+	rm -f $(DESTDIR)$(PREFIX)/$(PROJECT_NAME)-portable-$(VERSION).jar
+	rm -f $(DESTDIR)$(PREFIX)/$(PROJECT_NAME)
+
+	rm -f /usr/share/applications/$(PROJECT_NAME).desktop
+	rm -f /usr/share/applications/$(PROJECT_NAME).svg
 
 create_package:
 	makepkg .

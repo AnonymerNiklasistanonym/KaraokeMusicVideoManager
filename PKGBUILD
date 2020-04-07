@@ -16,7 +16,8 @@ sha1sums=('SKIP')
 
 build() {
   cd "$_gitname"
-  make
+  make build
+  make dist
 }
 
 package() {
