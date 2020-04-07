@@ -22,5 +22,5 @@ build() {
 
 package() {
   cd "$_gitname"
-  make DESTDIR="$pkgdir" install
+  make DESTDIR="$pkgdir" install install_desktop
 }

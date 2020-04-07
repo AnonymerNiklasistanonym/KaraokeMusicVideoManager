@@ -28,7 +28,7 @@ dist:
 
 	echo -e "\
 	#!/usr/bin/env bash\n\
-	java -jar $(PROJECT_NAME)-portable-$(VERSION).jar\
+	java -jar $(PROJECT_NAME)-portable-$(VERSION).jar\n\
 	" > $(BIN_DIR)/$(PROJECT_NAME)
 	chmod +x $(BIN_DIR)/$(PROJECT_NAME)
 
@@ -60,7 +60,10 @@ update_web_interfaces:
 install:
 	install -d $(DESTDIR)$(PREFIX)/
 	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME)-portable-$(VERSION).jar $(DESTDIR)$(PREFIX)/
+	sed -i s#$(PROJECT_NAME)-portable#$(DESTDIR)$(PREFIX)/$(PROJECT_NAME)-portable# $(BIN_DIR)/$(PROJECT_NAME)
 	install -Dm 777 $(BIN_DIR)/$(PROJECT_NAME) $(DESTDIR)$(PREFIX)/
+	sed -i s#$(DESTDIR)$(PREFIX)/$(PROJECT_NAME)-portable#$(PROJECT_NAME)-portable# $(BIN_DIR)/$(PROJECT_NAME)
+
 
 # Install a desktop file for the installed program
 install_desktop:
