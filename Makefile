@@ -70,29 +70,29 @@ install:
 	install -d $(DESTDIR)$(PREFIX)/
 
 	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME)-portable-$(VERSION).jar $(DESTDIR)$(PREFIX)/
-	sed -i s#$(PROJECT_NAME)-portable#$(DESTDIR)$(PREFIX)/$(PROJECT_NAME)-portable# $(BIN_DIR)/$(PROJECT_NAME)
+	sed -i s#$(PROJECT_NAME)-portable#$(PREFIX)/$(PROJECT_NAME)-portable# $(BIN_DIR)/$(PROJECT_NAME)
 	install -Dm 777 $(BIN_DIR)/$(PROJECT_NAME) $(DESTDIR)$(PREFIX)/
-	sed -i s#$(DESTDIR)$(PREFIX)/$(PROJECT_NAME)-portable#$(PROJECT_NAME)-portable# $(BIN_DIR)/$(PROJECT_NAME)
+	sed -i s#$(PREFIX)/$(PROJECT_NAME)-portable#$(PROJECT_NAME)-portable# $(BIN_DIR)/$(PROJECT_NAME)
 
 # Install a desktop file for the installed program
 install_desktop:
 	install -d $(DESTDIR)$(PREFIX_DESKTOP)/
 
-	sed -i s#Exec=#Exec=$(DESTDIR)$(PREFIX)/# $(BIN_DIR)/$(PROJECT_NAME).desktop
-	sed -i s#Icon=#Icon=$(DESTDIR)$(PREFIX_DESKTOP)/# $(BIN_DIR)/$(PROJECT_NAME).desktop
+	sed -i s#Exec=#Exec=$(PREFIX)/# $(BIN_DIR)/$(PROJECT_NAME).desktop
+	sed -i s#Icon=#Icon=$(PREFIX_DESKTOP)/# $(BIN_DIR)/$(PROJECT_NAME).desktop
 	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME).desktop $(DESTDIR)$(PREFIX_DESKTOP)/
-	sed -i s#Exec=$(DESTDIR)$(PREFIX)/#Exec=# $(BIN_DIR)/$(PROJECT_NAME).desktop
-	sed -i s#Icon=$(DESTDIR)$(PREFIX_DESKTOP)/#Icon=# $(BIN_DIR)/$(PROJECT_NAME).desktop
+	sed -i s#Exec=$(PREFIX)/#Exec=# $(BIN_DIR)/$(PROJECT_NAME).desktop
+	sed -i s#Icon=$(PREFIX_DESKTOP)/#Icon=# $(BIN_DIR)/$(PROJECT_NAME).desktop
 
 	install -Dm 644 $(BIN_DIR)/$(PROJECT_NAME).svg $(DESTDIR)$(PREFIX_DESKTOP)/
 
 # Uninstall installed program
 uninstall:
-	rm -f $(DESTDIR)$(PREFIX)/$(PROJECT_NAME)-portable-$(VERSION).jar
-	rm -f $(DESTDIR)$(PREFIX)/$(PROJECT_NAME)
+	rm -f $(PREFIX)/$(PROJECT_NAME)-portable-$(VERSION).jar
+	rm -f $(PREFIX)/$(PROJECT_NAME)
 
-	rm -f $(DESTDIR)$(PREFIX_DESKTOP)/$(PROJECT_NAME).desktop
-	rm -f $(DESTDIR)$(PREFIX_DESKTOP)/$(PROJECT_NAME).svg
+	rm -f $(PREFIX_DESKTOP)/$(PROJECT_NAME).desktop
+	rm -f $(PREFIX_DESKTOP)/$(PROJECT_NAME).svg
 
 create_package:
 	makepkg .
