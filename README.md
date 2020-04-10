@@ -75,7 +75,7 @@ The program runs on every computer that has Java (a Java Runtime from the last o
 
 Just double click the file and the program should be running.
 
-### Windows Instructions
+### Windows
 
 If you have Java not installed or an old version install the newest and securest version form the official website: https://www.java.com/en/download/
 
@@ -87,6 +87,22 @@ If you have Java not installed or an old version install the newest and securest
     * one will bring you right here to this website
     * one will launch the program
     * one will uninstall the program
+
+#### Build
+
+To build it from source you just need to run:
+
+```ps1
+.\build.ps1
+```
+
+To create a Windows installer executable you need to install NSIS and then run:
+
+```sh
+.\build.ps1 -no_build -no__dist -create_windows_installer
+# or build everything at once
+.\build.ps1 -create_windows_installer
+```
 
 ### Linux
 
