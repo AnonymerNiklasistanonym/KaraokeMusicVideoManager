@@ -98,3 +98,8 @@ create_package:
 	makepkg .
 	# Install with
 	# pacman -U packagename.tar.gz
+
+create_windows_installer:
+	echo "Update/Create all web interfaces:"
+	cd WindowsInstaller; \
+	python3 build_windows_installer.py

@@ -1,4 +1,5 @@
 # KaraokeMusicVideoManager
+
 A software that scans folders after music videos, brings them together in a list and starts them. After this there will also come a website where people can say/post which song they want to do next.
 
 ## What is the KaraokeMusicVideoManager about?
@@ -111,6 +112,30 @@ Now you can run the program with the following command through the command line:
 
 ```
 java -jar path/to/downloaded/file.jar
+```
+
+#### Build
+
+To build it from source you just need to run:
+
+```sh
+make
+```
+
+To create a Windows installer executable on Linux you need to install NSIS:
+
+```
+# Manjaro
+sudo trizen -S nsis
+# If there is a problem with a dependency called 'mingw-w64-gcc-base'
+# run '$ trizen -S mingw-w64-gcc-base' and then the NSIS install command
+```
+
+Then you just need to run:
+
+```sh
+# Run 'make' before this to get the Java jar file
+make create_windows_installer
 ```
 
 ## Frequently asked questions
