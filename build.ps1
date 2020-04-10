@@ -35,13 +35,13 @@ if ($clean) {
 
 if ($update_images) {
     Set-Location ImageResources
-    python3 create_image_resources.py
+    python create_image_resources.py
     Set-Location ..
 }
 
 if ($update_web_interfaces) {
     Set-Location WebInterfaces
-    python3 create_website_resources.py
+    python create_website_resources.py
     Set-Location ..
 }
 
@@ -54,7 +54,7 @@ if (-Not $no_build) {
 if (-Not $no_dist) {
     New-Item $BIN_DIR -ItemType Directory -ErrorAction SilentlyContinue
     Set-Location $SRC_DIR
-    python3 format_exported_jar.py
+    python format_exported_jar.py
     Set-Location ..
     $JAR_FILES=Join-Path -Path "." -ChildPath "*.jar"
     Copy-Item -Path $JAR_FILES -Destination $BIN_DIR -Recurse
@@ -62,6 +62,6 @@ if (-Not $no_dist) {
 
 if ($create_windows_installer) {
     Set-Location WindowsInstaller
-    python3 build_windows_installer.py
+    python build_windows_installer.py
     Set-Location ..
 }
