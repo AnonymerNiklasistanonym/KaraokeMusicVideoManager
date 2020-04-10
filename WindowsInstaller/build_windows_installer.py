@@ -27,9 +27,11 @@ XML_TREE = minidom.parse(XML_FILE)
 ARTIFACT_ID = XML_TREE.getElementsByTagName("artifactId")[0].firstChild.data
 VERSION = XML_TREE.getElementsByTagName("version")[0].firstChild.data
 
+BIN_DIR=os.path.join("..", "bin")
+
 # specify the name of the jar file for the NSIS script and the final name
-INSTALLER_FILE_NAME = os.path.join("..", f"{ARTIFACT_ID}.jar")
-CORRECT_FINAL_FILE_NAME = os.path.join("..", f"{ARTIFACT_ID}-portable-{VERSION}.jar")
+INSTALLER_FILE_NAME = os.path.join(BIN_DIR, f"{ARTIFACT_ID}.jar")
+CORRECT_FINAL_FILE_NAME = os.path.join(BIN_DIR, f"{ARTIFACT_ID}-portable-{VERSION}.jar")
 
 # Change the file name of the jar if it isn't the one the NSIS script needs
 if os.path.isfile(CORRECT_FINAL_FILE_NAME):
@@ -67,9 +69,7 @@ if os.path.isfile(INSTALLER_FILE_NAME):
 
 # rename the created installer to specify the correct version and use case
 INSTALLER_NAME = os.path.join("..", f"{ARTIFACT_ID}_windows_installer.exe")
-BIN_DIR=os.path.join("..", "bin")
 CORRECT_INSTALLER_NAME = os.path.join(BIN_DIR, f"{ARTIFACT_ID}-win-installer-{VERSION}.exe")
-os.makedirs(BIN_DIR, exist_ok=True)
 
 # rename the installer executable to include the version number:
 if os.path.isfile(INSTALLER_NAME):

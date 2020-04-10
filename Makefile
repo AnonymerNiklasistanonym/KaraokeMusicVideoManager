@@ -1,4 +1,4 @@
-.PHONY: build clean dist install install_desktop img web
+.PHONY: build clean dist install install_desktop img web create_windows_installer
 
 SRC_DIR=DesktopClient
 BIN_DIR=bin
@@ -22,13 +22,11 @@ clean:
 
 # Build the program
 build:
-	echo "Build 'portable' runnable jar:"
 	cd $(SRC_DIR); \
 	mvn install
 
 # Clean up build and extract/rename executable
 dist:
-	echo "Dist (rename) runnable jar:"
 	cd $(SRC_DIR); \
 	python3 format_exported_jar.py
 
@@ -55,13 +53,11 @@ dist:
 
 # Update images
 update_images:
-	echo "Update/Create all images and icons: (wait some seconds)"
 	cd ImageResources; \
 	python3 create_image_resources.py
 
 # Update web data
 update_web_interfaces:
-	echo "Update/Create all web interfaces:"
 	cd WebInterfaces; \
 	python3 create_website_resources.py
 
@@ -100,6 +96,5 @@ create_package:
 	# pacman -U packagename.tar.gz
 
 create_windows_installer:
-	echo "Update/Create all web interfaces:"
 	cd WindowsInstaller; \
 	python3 build_windows_installer.py

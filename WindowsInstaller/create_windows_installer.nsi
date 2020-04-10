@@ -148,7 +148,7 @@ Section "${PRODUCT} (Required)"
   SetOutPath $INSTDIR
 
   ;Put file here
-  File "..\${PRODUCT}.jar"
+  File "..\bin\${PRODUCT}.jar"
   File "icons\icon.ico"
 
   ;Store installation folder in registry
@@ -165,7 +165,7 @@ Section "${PRODUCT} (Required)"
   CreateDirectory "$SMPROGRAMS\${PRODUCT}"
   CreateShortCut "$SMPROGRAMS\${PRODUCT}\${PRODUCT_SHORTCUT}.lnk" "$INSTDIR\${PRODUCT}.jar" "" "$INSTDIR\icon.ico" 0
   CreateShortCut "$SMPROGRAMS\${PRODUCT}\Uninstall ${PRODUCT_SHORTCUT}.lnk" "$INSTDIR\${PRODUCT}_uninstaller.exe" "" "$INSTDIR\${PRODUCT}_uninstaller.exe" 0
-  
+
   ;Create desktop Shortcut
   CreateShortCut "$DESKTOP\${PRODUCT_SHORTCUT}.lnk" "$INSTDIR\${PRODUCT}.jar" "" "$INSTDIR\icon.ico" 0
 
