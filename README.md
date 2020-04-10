@@ -99,7 +99,7 @@ To build it from source you just need to run:
 To create a Windows installer executable you need to install NSIS and then run:
 
 ```sh
-.\build.ps1 -no_build -no__dist -create_windows_installer
+.\build.ps1 -no_build -no_dist -create_windows_installer
 # or build everything at once
 .\build.ps1 -create_windows_installer
 ```
