@@ -23,3 +23,8 @@ bin
 *.git
 *.pkg.*
 pkg
+
+# Python virtual environments
+venv*
+# Python cache files
+__pycache__

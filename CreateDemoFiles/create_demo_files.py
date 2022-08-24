@@ -9,7 +9,8 @@ Creates music video demo video files
 
 import random
 import cv2
-from PIL import Image, ImageDraw, ImageFont
+# pil in lowercase was necessary on Windows, if this doesn't work try in uppercase
+from pil import Image, ImageDraw, ImageFont
 import os
 
 
