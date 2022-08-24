@@ -22,16 +22,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>20-ea+2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>20-ea+2</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.json</groupId>
 			<artifactId>javax.json-api</artifactId>
 			<version>1.1</version>
@@ -87,7 +77,7 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<!--<plugin>
+			<!--<plugin> 
 				Compile jar without dependencies (dependencies are neeeded!! because of SFTP libary and JavaFx)
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
